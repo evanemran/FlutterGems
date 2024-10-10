@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
 class PackageItem {
   String title = "";
   String compatibility = "";
@@ -6,7 +10,9 @@ class PackageItem {
   List<String> platforms = [];
   String details = "";
   String image = "";
+  Color maintenanceColor = Colors.green;
+  String href = "";
 
-  PackageItem(this.title, this.compatibility, this.maintenance, this.likes,
-      this.platforms, this.details, this.image);
+  PackageItem(this.title, this.compatibility, this.maintenanceColor, this.maintenance, this.likes,
+      this.platforms, this.details, this.image, this.href);
 }

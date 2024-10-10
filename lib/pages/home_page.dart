@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttergems/models/gems.dart';
 import 'package:fluttergems/scrapper/scrapper.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'details_page.dart';
 
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       // Category Title
                       Text(
-                        list[index].title,
+                        "${index+1}: ${list[index].title}",
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -47,8 +48,8 @@ class _HomePageState extends State<HomePage> {
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
                           childAspectRatio: 1, // Height to width ratio for grid items
                         ),
                         itemCount: list[index].packages.length,
@@ -105,21 +106,17 @@ class _HomePageState extends State<HomePage> {
               },
             );
 
-
-            /*return ListView.builder(
-                itemCount: list.length,
-                itemBuilder: (context, position) {
-                  var item = list[position];
-
-                  return Text(item.title);
-                }
-            );*/
           }
           catch(e){
             return const Card(color: Colors.white, elevation: 8, child: Center(child: Text("No Data Found!"),),);
           }
         } else {
-          return const Center(child: CircularProgressIndicator(),);
+          return  Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+              color: Colors.blueAccent,
+              size: MediaQuery.of(context).size.width/6,
+            ),
+          );
         }
       },
     );
@@ -130,10 +127,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Flutter Gems"),
+        backgroundColor: Colors.blueAccent,
+        title: const Text("Flutter Gems", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+        centerTitle: true,
+        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.view_list_sharp, color: Colors.white,)),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.star, color: Colors.white,))
+        ],
       ),
-      
+
       body: Center(
         child: _buildGemsList(context),
       ),

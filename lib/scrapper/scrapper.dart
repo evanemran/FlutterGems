@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart' as material;
 import 'package:fluttergems/models/gems.dart';
 import 'package:fluttergems/models/packages.dart';
 import 'package:fluttergems/utils/constants.dart';
@@ -84,10 +87,12 @@ class ScrapperManager {
     final List<Element> packageGroups = document.querySelectorAll('.pkg-card');
     final Element? titleElement = document.querySelector('h2');
     final Element? lastUpdateElement = document.querySelector('p.text-muted i');
+    final Element descriptionElement = document.querySelectorAll('p')[1];
     // final Element? lastUpdateElement = document.querySelector('p.text-muted i');
 
     String title = titleElement!.text ?? "N/A";
     String lastUpdate = lastUpdateElement!.text ?? "N/A";
+    String description = descriptionElement.text ?? "N/A";
 
     List<PackageItem> packageItemList = [];
 
@@ -99,23 +104,31 @@ class ScrapperManager {
       final compatibleElement = group.querySelector('span.badge.bg-primary');
       final detailsElement = group.querySelector('p.card-text');
       final imageElement = group.querySelector('img.card-img-top');
+      final likeElement = group.querySelector('h6.card-subtitle.text-muted');
+      final hrefElement = group.querySelector('div.d-grid.gap-2 a');
       if (titleElement != null) {
         String packageTitle = "${titleElement.text.trim()}\n\n";
         String compatibility = "";
         String maintenance = "";
         String details = "";
         String imageUrl = "";
+        String likeCount = "0";
+        Color maintenanceColor = material.Colors.green;
+        String hrefEndPoint = "";
 
         if(maintenanceGoodElement!=null) {
           maintenance = maintenanceGoodElement.text.trim();
+          maintenanceColor = material.Colors.green;
         }
 
         if(maintenanceWarningElement!=null) {
           maintenance = maintenanceWarningElement.text.trim();
+          maintenanceColor = material.Colors.orange;
         }
 
         if(maintenanceDangerElement!=null) {
           maintenance = maintenanceDangerElement.text.trim();
+          maintenanceColor = material.Colors.red;
         }
 
         if(compatibleElement!=null) {
@@ -130,12 +143,29 @@ class ScrapperManager {
           imageUrl = imageElement.attributes['src']!=null ? 'https://fluttergems.dev${imageElement.attributes['src']}' : "";
         }
 
+        if(likeElement!=null) {
+          // Extract the text content (including the like count)
+          String likeText = likeElement.text;
+
+          // Use a regular expression to extract the number from the like count (e.g., 1.69K)
+          RegExp regExp = RegExp(r'👍\s(\d+(\.\d+)?[K]?)');
+          Match? match = regExp.firstMatch(likeText);
+
+          if (match != null) {
+            likeCount = "👍 ${match.group(1)!}";
+          } else {
+            likeCount = "👍 0";
+          }
+        }
+
+        hrefEndPoint = hrefElement?.attributes['href'] ?? "";
+
         // Add the Gems category with its list of packages
-        packageItemList.add(PackageItem(packageTitle, compatibility, maintenance, "likes", [], details, imageUrl));
+        packageItemList.add(PackageItem(packageTitle, compatibility, maintenanceColor, maintenance, likeCount, [], details, imageUrl, hrefEndPoint));
       }
     }
 
-    PackageDetails details = PackageDetails(title, "", lastUpdate, packageItemList);
+    PackageDetails details = PackageDetails(title, description, lastUpdate, packageItemList);
 
     return details;
   }
