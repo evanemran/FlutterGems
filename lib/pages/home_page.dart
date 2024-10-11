@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttergems/models/gems.dart';
 import 'package:fluttergems/scrapper/scrapper.dart';
+import 'package:fluttergems/utils/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'details_page.dart';
@@ -43,15 +45,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 10),
                       // GridView for packages with 2 columns
-                      GridView.builder(
+                      MasonryGridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                          childAspectRatio: 1, // Height to width ratio for grid items
-                        ),
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
                         itemCount: list[index].packages.length,
                         itemBuilder: (context, packageIndex) {
                           return GestureDetector(
@@ -60,42 +59,47 @@ class _HomePageState extends State<HomePage> {
                                 endPoint: list[index].packages[packageIndex].href,)
                               ));
                             },
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Wrap(
-                                children: [
-                                  Column(
-                                    children: [
-                                      list[index].packages[packageIndex].image.endsWith(".svg")
-                                          ? SvgPicture.network(
+                            child: Material(
+                              elevation: 8,
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: ColorManager.background,
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  color: ColorManager.background,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Wrap(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        list[index].packages[packageIndex].image.endsWith(".svg")
+                                            ? SvgPicture.network(
+                                            list[index].packages[packageIndex].image,
+                                          height: 50,
+                                        )
+                                        : Image.network(
                                           list[index].packages[packageIndex].image,
-                                        height: 50,
-                                      )
-                                      : Image.network(
-                                        list[index].packages[packageIndex].image,
-                                        height: 50,
-                                      ),
-                                      Text(
-                                        list[index].packages[packageIndex].title,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: const TextStyle(color: Colors.black, fontSize: 12),
-                                      ),
-                                      Text(
-                                        list[index].packages[packageIndex].count,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 1,
-                                        style: const TextStyle(color: Colors.green, fontSize: 10),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              )
+                                          height: 50,
+                                        ),
+                                        Text(
+                                          list[index].packages[packageIndex].title,
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                          style: const TextStyle(color: Colors.black, fontSize: 12),
+                                        ),
+                                        Text(
+                                          list[index].packages[packageIndex].count,
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          style: const TextStyle(color: Colors.green, fontSize: 10),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ),
                             ),
                           );
                         },
@@ -127,7 +131,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorManager.white,
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: const Text("Flutter Gems", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
