@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttergems/models/repository.dart';
+import 'package:fluttergems/pages/webview_page.dart';
 import 'package:fluttergems/scrapper/scrapper.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -149,103 +150,142 @@ class _PackagePageState extends State<PackagePage> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(flex: 1, child: ElevatedButton(
-                              onPressed: () async {
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PackagePage(endPoint: list[packageIndex].href, imgUrl: list[packageIndex].image,)));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                minimumSize: const Size(double.maxFinite, 36),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(4.0), // Rounded corners
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(flex: 1, child: Visibility(
+                                visible: details.pubDevUrl!="",
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => WebViewPage(url: details.pubDevUrl),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent,
+                                    elevation: 8,
+                                    minimumSize: const Size(double.maxFinite, 36),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(4.0), // Rounded corners
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "Pub.Dev",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              child: const Text(
-                                "Pub.Dev",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                              )),
+                              const SizedBox(width: 8,),
+                              Expanded(flex: 1, child: Visibility(
+                                visible: details.sourceCodeUrl!="",
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => WebViewPage(url: details.sourceCodeUrl),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent,
+                                    elevation: 8,
+                                    minimumSize: const Size(double.maxFinite, 36),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(4.0), // Rounded corners
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "Source Code",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            )),
-                            const SizedBox(width: 8,),
-                            Expanded(flex: 1, child: ElevatedButton(
-                              onPressed: () async {
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PackagePage(endPoint: list[packageIndex].href, imgUrl: list[packageIndex].image,)));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                minimumSize: const Size(double.maxFinite, 36),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(4.0), // Rounded corners
+                              )),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(flex: 1, child: Visibility(
+                                visible: details.docUrl!="",
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => WebViewPage(url: details.docUrl),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent,
+                                    elevation: 8,
+                                    minimumSize: const Size(double.maxFinite, 36),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(4.0), // Rounded corners
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "Documentation",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              child: const Text(
-                                "Source Code",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                              )),
+                              const SizedBox(width: 8,),
+                              Expanded(flex: 1, child: Visibility(
+                                visible: details.apiDocUrl!="",
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => WebViewPage(url: details.apiDocUrl),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent,
+                                    elevation: 8,
+                                    minimumSize: const Size(double.maxFinite, 36),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(4.0), // Rounded corners
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "API Docs",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            )),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(flex: 1, child: ElevatedButton(
-                              onPressed: () async {
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PackagePage(endPoint: list[packageIndex].href, imgUrl: list[packageIndex].image,)));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                minimumSize: const Size(double.maxFinite, 36),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(4.0), // Rounded corners
-                                ),
-                              ),
-                              child: const Text(
-                                "Documentation",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            )),
-                            const SizedBox(width: 8,),
-                            Expanded(flex: 1, child: ElevatedButton(
-                              onPressed: () async {
-                                //Navigator.of(context).push(MaterialPageRoute(builder: (context) => PackagePage(endPoint: list[packageIndex].href, imgUrl: list[packageIndex].image,)));
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blueAccent,
-                                minimumSize: const Size(double.maxFinite, 36),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(4.0), // Rounded corners
-                                ),
-                              ),
-                              child: const Text(
-                                "API Docs",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            )),
-                          ],
-                        ),
-                      ],
+                              )),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 
@@ -287,7 +327,15 @@ class _PackagePageState extends State<PackagePage> {
                                     margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                                     child: ListTile(
                                       tileColor: ColorManager.background,
-                                      contentPadding: EdgeInsets.all(5),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => WebViewPage(url: list[position].url),
+                                          ),
+                                        );
+                                      },
+                                      contentPadding: const EdgeInsets.all(5),
                                       title: Row(
                                         children: [
                                           Expanded(child: Text(item.name, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),)),
@@ -328,10 +376,13 @@ class _PackagePageState extends State<PackagePage> {
       backgroundColor: ColorManager.white,
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
-        title: const Text("Package Info", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text("Package Info", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal)),
         leading: IconButton(onPressed: () {
           Navigator.of(context).pop();
         }, icon: const Icon(Icons.arrow_back_ios, color: Colors.white,)),
+        actions: [
+          IconButton(onPressed: () {}, padding: const EdgeInsets.all(8), icon: const Icon(Icons.star_border_outlined, color: Colors.white,))
+        ],
       ),
       
       body: _buildDetails(context),

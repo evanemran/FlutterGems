@@ -111,7 +111,7 @@ class ScrapperManager {
       final likeElement = group.querySelector('h6.card-subtitle.text-muted');
       final hrefElement = group.querySelector('div.d-grid.gap-2 a');
       if (titleElement != null) {
-        String packageTitle = "${titleElement.text.trim()}\n\n";
+        String packageTitle = "${titleElement.text.trim()}";
         String compatibility = "";
         String maintenance = "";
         String details = "";
@@ -140,7 +140,7 @@ class ScrapperManager {
         }
 
         if (detailsElement != null) {
-          details = "${detailsElement.text.trim()}\n\n\n\n\n";
+          details = detailsElement.text.trim();
         }
 
         if (imageElement != null) {
@@ -186,8 +186,7 @@ class ScrapperManager {
     return details;
   }
 
-  Future<PackageSingleItem> fetchFlutterSinglePackageDetails(
-      String endpoint) async {
+  Future<PackageSingleItem> fetchFlutterSinglePackageDetails(String endpoint) async {
     final response = await http.get(Uri.parse(AppConstants.baseUrl + endpoint));
 
     if (response.statusCode != 200) {

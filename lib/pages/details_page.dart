@@ -8,6 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../scrapper/scrapper.dart';
 import '../utils/colors.dart';
+import '../utils/routes.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key, required this.endPoint});
@@ -95,13 +96,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         list[packageIndex].image.isNotEmpty
-                                            ? AspectRatio(
-                                                aspectRatio:
-                                                    1, // 1:1 aspect ratio
-                                                // child: Image.network(product.images![0].toString().replaceAll("https", "http")),
-                                                child: Image.network(
-                                                    list[packageIndex].image),
-                                              )
+                                            ? Image.network(
+                                            list[packageIndex].image, width: double.maxFinite,)
                                             : Image.asset("assets/flutter.png"),
                                         Text(
                                           list[packageIndex].title,
@@ -122,13 +118,19 @@ class _DetailsPageState extends State<DetailsPage> {
                                             borderRadius:
                                                 BorderRadius.circular(4.0),
                                           ),
-                                          child: Text(
-                                            list[packageIndex].maintenance,
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
+                                          child: Row(
+                                            children: [
+                                              const Icon(Icons.verified_outlined, color: Colors.white, size: 14,),
+                                              const SizedBox(width: 4,),
+                                              Text(
+                                                list[packageIndex].maintenance.replaceAll("Status", ""),
+                                                textAlign: TextAlign.start,
+                                                maxLines: 1,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12),
+                                              )
+                                            ],
                                           ),
                                         ),
                                         Container(
@@ -159,17 +161,16 @@ class _DetailsPageState extends State<DetailsPage> {
                                         ),
                                         ElevatedButton(
                                           onPressed: () async {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PackagePage(
-                                                          endPoint:
-                                                              list[packageIndex]
-                                                                  .href,
-                                                          imgUrl:
-                                                              list[packageIndex]
-                                                                  .image,
-                                                        )));
+
+                                            Navigator.of(context).push(RouteManager().createRoute(PackagePage(
+                                              endPoint:
+                                              list[packageIndex]
+                                                  .href,
+                                              imgUrl:
+                                              list[packageIndex]
+                                                  .image,
+                                            )));
+
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.blueAccent,
@@ -379,15 +380,23 @@ class _DetailsPageState extends State<DetailsPage> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: const Text("Details",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal)),
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
+            padding: const EdgeInsets.all(4),
             icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
             )),
+
+        actions: [
+          IconButton(
+              onPressed: () {
+              },
+              icon: Image.asset("assets/filter.png", height: 20, width: 20, color: Colors.white))
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(
