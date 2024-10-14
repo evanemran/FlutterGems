@@ -38,12 +38,15 @@ class _PackagePageState extends State<PackagePage> {
                 children: [
                   Container(
                     width: double.maxFinite,
+                    color: Theme.of(context).colorScheme.primary,
                     margin: const EdgeInsets.all(0),
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                    child: Material(
+                    child: Card(
                       elevation: 8,
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: ColorManager.background,
+                      color: Theme.of(context).colorScheme.secondary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                       child: Row(
                         children: [
                           Padding(
@@ -55,11 +58,11 @@ class _PackagePageState extends State<PackagePage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(details.title, style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+                              Text(details.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                               const SizedBox(height: 4,),
-                              Text(details.publisher, style: const TextStyle(color: Colors.black45, fontSize: 12, fontWeight: FontWeight.normal)),
+                              Text(details.publisher, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal)),
                               const SizedBox(height: 4,),
-                              Text(details.addMethod, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                              Text(details.addMethod, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                             ],
                           ))
                         ],
@@ -71,10 +74,12 @@ class _PackagePageState extends State<PackagePage> {
                     width: double.maxFinite,
                     margin: const EdgeInsets.all(0),
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                    child: Material(
+                    child: Card(
                       elevation: 8,
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: ColorManager.background,
+                      color: Theme.of(context).colorScheme.secondary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         child: Row(
@@ -83,29 +88,29 @@ class _PackagePageState extends State<PackagePage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Category", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),),
+                                Text("Category", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
                                 SizedBox(height: 4,),
-                                Text("Dart 3", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Dart 3", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Null safety", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Null safety", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Platform(s)", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Platform(s)", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Dart SDK", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Dart SDK", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Flutter SDK", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Flutter SDK", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Latest Version", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Latest Version", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Created", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Created", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Pub Likes", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Pub Likes", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Pub Points", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Pub Points", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("GitHub Stars", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("GitHub Stars", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                                 SizedBox(height: 4,),
-                                Text("Open Issues", style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold)),
+                                Text("Open Issues", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                               ],
                             )),
                             const SizedBox(width: 10,),
@@ -113,29 +118,29 @@ class _PackagePageState extends State<PackagePage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(":  ${details.category}", maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal),),
+                                Text(":  ${details.category}", maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.compatibility}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.compatibility}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.nullSafety}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.nullSafety}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.platforms.join(', ')}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.platforms.join(', ')}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.dartSdk}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.dartSdk}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.flutterSdk}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.flutterSdk}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.latestVersion}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.latestVersion}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.createdDate}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.createdDate}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.pubLikes}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.pubLikes}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.pubPoints}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.pubPoints}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.githubStars}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.githubStars}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                                 const SizedBox(height: 4,),
-                                Text(":  ${details.openIssues}",maxLines: 1, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal)),
+                                Text(":  ${details.openIssues}",maxLines: 1, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                               ],
                             ))
                           ],
@@ -146,7 +151,6 @@ class _PackagePageState extends State<PackagePage> {
 
                   Container(
                     decoration: BoxDecoration(
-                      color: ColorManager.background,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -296,17 +300,17 @@ class _PackagePageState extends State<PackagePage> {
               
                   Container(
                     decoration: BoxDecoration(
-                      color: ColorManager.background,
                       borderRadius: BorderRadius.circular(8.0),
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                    margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                     child: Column(
                       children: [
                         Visibility(visible: list.isNotEmpty, child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("🖥️ Open Source Flutter Apps & Projects that use ${details.title} [${list.length}]", style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),),
+                            child: Text("🖥️ Open Source Flutter Apps & Projects that use ${details.title} [${list.length}]", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                           ),
                         )),
               
@@ -319,14 +323,16 @@ class _PackagePageState extends State<PackagePage> {
               
                               return Container(
                                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                child: Material(
+                                child: Card(
                                   elevation: 8,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: ColorManager.background,
+                                  color: Theme.of(context).colorScheme.secondary,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                   child: Container(
+                                    color: Theme.of(context).colorScheme.secondary,
                                     margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                                     child: ListTile(
-                                      tileColor: ColorManager.background,
                                       onTap: () {
                                         Navigator.push(
                                           context,
@@ -335,14 +341,15 @@ class _PackagePageState extends State<PackagePage> {
                                           ),
                                         );
                                       },
+                                      dense: true,
                                       contentPadding: const EdgeInsets.all(5),
                                       title: Row(
                                         children: [
-                                          Expanded(child: Text(item.name, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),)),
-                                          Text("⭐ ${item.stars}", style: const TextStyle(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 14),)
+                                          Expanded(child: Text(item.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),)),
+                                          Text("⭐ ${item.stars}", style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 14),)
                                         ],
                                       ),
-                                      subtitle: Text(item.description, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 14),),
+                                      subtitle: Text(item.description, style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 14),),
                                     ),
                                   ),
                                 ),
@@ -373,7 +380,7 @@ class _PackagePageState extends State<PackagePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: const Text("Package Info", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal)),

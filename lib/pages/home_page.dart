@@ -9,12 +9,15 @@ import 'package:fluttergems/scrapper/scrapper.dart';
 import 'package:fluttergems/utils/colors.dart';
 import 'package:fluttergems/utils/menus.dart';
 import 'package:fluttergems/utils/routes.dart';
+import 'package:fluttergems/widgets/custom_switch.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'details_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.onThemeChanged});
+
+  final ValueChanged<ThemeMode> onThemeChanged;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -24,6 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   final GlobalKey<SliderDrawerState> _key = GlobalKey<SliderDrawerState>();
   final ValueNotifier<bool> isIconChanged = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> isModeChanged = ValueNotifier<bool>(false);
 
   FutureBuilder<List<Gems>> _buildGemsList(BuildContext context) {
 
@@ -74,81 +78,84 @@ class _HomePageState extends State<HomePage> {
                     delegate: SliverChildBuilderDelegate(
                         childCount: list.length,
                             (context, index) =>  Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Category Title
-                              Text(
-                                "${index+1}: ${list[index].title}",
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                          padding: const EdgeInsets.all(0.0),
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            color: Theme.of(context).colorScheme.primary,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Category Title
+                                Text(
+                                  "${index+1}: ${list[index].title}",
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              // GridView for packages with 2 columns
-                              MasonryGridView.count(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 8,
-                                mainAxisSpacing: 8,
-                                itemCount: list[index].packages.length,
-                                itemBuilder: (context, packageIndex) {
-                                  return GestureDetector(
-                                    onTap: () {
+                                // GridView for packages with 2 columns
+                                MasonryGridView.count(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 8,
+                                  itemCount: list[index].packages.length,
+                                  itemBuilder: (context, packageIndex) {
+                                    return GestureDetector(
+                                      onTap: () {
 
-                                      Navigator.of(context).push(RouteManager().createRoute(DetailsPage(
-                                        endPoint: list[index].packages[packageIndex].href,)
-                                      ));
+                                        Navigator.of(context).push(RouteManager().createRoute(DetailsPage(
+                                          endPoint: list[index].packages[packageIndex].href,)
+                                        ));
 
-                                    },
-                                    child: Material(
-                                      elevation: 8,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      color: ColorManager.background,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          padding: const EdgeInsets.all(8.0),
-                                          decoration: BoxDecoration(
-                                            color: ColorManager.background,
-                                            borderRadius: BorderRadius.circular(8.0),
-                                          ),
-                                          child: Wrap(
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  list[index].packages[packageIndex].image.endsWith(".svg")
-                                                      ? SvgPicture.network(
-                                                    list[index].packages[packageIndex].image,
-                                                    height: 50,
-                                                  )
-                                                      : Image.network(
-                                                    list[index].packages[packageIndex].image,
-                                                    height: 50,
-                                                  ),
-                                                  Text(
-                                                    list[index].packages[packageIndex].title,
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 2,
-                                                    style: const TextStyle(color: Colors.black, fontSize: 12),
-                                                  ),
-                                                  Text(
-                                                    list[index].packages[packageIndex].count,
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 1,
-                                                    style: const TextStyle(color: Colors.green, fontSize: 10),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          )
+                                      },
+                                      child: Material(
+                                        elevation: 8,
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            padding: const EdgeInsets.all(8.0),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              color: Theme.of(context).colorScheme.secondary,
+                                            ),
+                                            child: Wrap(
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    list[index].packages[packageIndex].image.endsWith(".svg")
+                                                        ? SvgPicture.network(
+                                                      list[index].packages[packageIndex].image,
+                                                      height: 50,
+                                                    )
+                                                        : Image.network(
+                                                      list[index].packages[packageIndex].image,
+                                                      height: 50,
+                                                    ),
+                                                    Text(
+                                                      list[index].packages[packageIndex].title,
+                                                      textAlign: TextAlign.center,
+                                                      maxLines: 2,
+                                                      style: const TextStyle(fontSize: 12),
+                                                    ),
+                                                    Text(
+                                                      list[index].packages[packageIndex].count,
+                                                      textAlign: TextAlign.center,
+                                                      maxLines: 1,
+                                                      style: const TextStyle(color: Colors.green, fontSize: 10),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         )
                     )
@@ -176,14 +183,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
+    final ThemeData currentTheme = Theme.of(context);
+    isModeChanged.value = currentTheme.brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SliderDrawer(
+          splashColor: Theme.of(context).colorScheme.primary,
           key: _key,
           appBar: Container(),
           slider: Container(
             padding: const EdgeInsets.all(16),
-            color: ColorManager.blue,
+            color: Theme.of(context).colorScheme.primary,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -199,6 +210,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 16,),
                 const Text("Flutter Gems", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                const SizedBox(height: 16,),
+                ValueListenableBuilder<bool>(
+                    valueListenable: isModeChanged,
+                    builder: (context, value, child) {
+                      return CustomSwitch(
+                        value: value,
+                        onChanged: (value) {
+                          isModeChanged.value = !isModeChanged.value;
+                          if(value) {
+                            widget.onThemeChanged(ThemeMode.dark);
+                          }
+                          else {
+                            widget.onThemeChanged(ThemeMode.light);
+                          }
+                        },
+                      );
+                    }
+                ),
                 ListView.builder(
                   shrinkWrap: true,
                   itemCount: MenuManager.drawerMenu.length,
@@ -211,22 +240,22 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: ColorManager.background,
                           borderRadius: BorderRadius.circular(8.0),
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Row(
                           children: [
                             const SizedBox(width: 8,),
-                            Image.asset(item.icon, height: 28, width: 28,),
+                            Image.asset(item.icon, height: 28, width: 28, color: Theme.of(context).colorScheme.tertiary,),
                             const SizedBox(width: 16,),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(item.title, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),),
-                                Text(item.subtitle, style: const TextStyle(color: Colors.blueGrey, fontSize: 12),),
+                                Text(item.title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                                Text(item.subtitle, style: const TextStyle(fontSize: 12),),
                               ],
                             )
 

@@ -32,9 +32,9 @@ class _DetailsPageState extends State<DetailsPage> {
             return Column(
               children: [
                 Container(
-                  color: ColorManager.background,
                   margin: const EdgeInsets.all(8),
                   padding: const EdgeInsets.all(8),
+                  color: Theme.of(context).colorScheme.secondary,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +42,6 @@ class _DetailsPageState extends State<DetailsPage> {
                       Text(
                         details.title,
                         style: const TextStyle(
-                            color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
@@ -51,7 +50,6 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       Text(details.lastUpdate,
                           style: const TextStyle(
-                              color: Colors.black45,
                               fontSize: 12,
                               fontWeight: FontWeight.normal)),
                       const SizedBox(
@@ -59,297 +57,165 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                       Text(details.subtitle,
                           style: const TextStyle(
-                              color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.normal)),
                     ],
                   ),
                 ),
-                MasonryGridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  itemCount: list.length,
-                  itemBuilder: (context, packageIndex) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Stack(
-                        children: [
-                          Material(
-                            elevation: 8,
-                            borderRadius: BorderRadius.circular(8.0),
-                            color: ColorManager.background,
-                            child: Container(
-                                padding: const EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                  color: ColorManager.background,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: Wrap(
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        list[packageIndex].image.isNotEmpty
-                                            ? Image.network(
-                                            list[packageIndex].image, width: double.maxFinite,)
-                                            : Image.asset("assets/flutter.png"),
-                                        Text(
-                                          list[packageIndex].title,
-                                          textAlign: TextAlign.start,
-                                          maxLines: 2,
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 4),
-                                          padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: list[packageIndex]
-                                                .maintenanceColor,
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              const Icon(Icons.verified_outlined, color: Colors.white, size: 14,),
-                                              const SizedBox(width: 4,),
-                                              Text(
-                                                list[packageIndex].maintenance.replaceAll("Status", ""),
-                                                textAlign: TextAlign.start,
-                                                maxLines: 1,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 4),
-                                          padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: Colors.blue,
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                          ),
-                                          child: Text(
-                                            list[packageIndex].compatibility,
+                Container(
+                  margin: const EdgeInsets.all(8),
+                  child: MasonryGridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    itemCount: list.length,
+                    itemBuilder: (context, packageIndex) {
+                      return GestureDetector(
+                        onTap: () {},
+                        child: Stack(
+                          children: [
+                            Card(
+                              elevation: 8,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Wrap(
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          list[packageIndex].image.isNotEmpty
+                                              ? Image.network(
+                                              list[packageIndex].image, width: double.maxFinite,)
+                                              : Image.asset("assets/flutter.png"),
+                                          Text(
+                                            list[packageIndex].title,
                                             textAlign: TextAlign.start,
-                                            maxLines: 1,
+                                            maxLines: 2,
                                             style: const TextStyle(
-                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 4),
+                                            padding: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              color: list[packageIndex]
+                                                  .maintenanceColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                const Icon(Icons.verified_outlined, color: Colors.white, size: 14,),
+                                                const SizedBox(width: 4,),
+                                                Text(
+                                                  list[packageIndex].maintenance.replaceAll("Status", ""),
+                                                  textAlign: TextAlign.start,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 4),
+                                            padding: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              color: Colors.blue,
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                            ),
+                                            child: Text(
+                                              list[packageIndex].compatibility,
+                                              textAlign: TextAlign.start,
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                          Text(
+                                            list[packageIndex].details,
+                                            textAlign: TextAlign.start,
+                                            maxLines: 4,
+                                            style: const TextStyle(
                                                 fontSize: 12),
                                           ),
-                                        ),
-                                        Text(
-                                          list[packageIndex].details,
-                                          textAlign: TextAlign.start,
-                                          maxLines: 4,
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () async {
+                                          ElevatedButton(
+                                            onPressed: () async {
 
-                                            Navigator.of(context).push(RouteManager().createRoute(PackagePage(
-                                              endPoint:
-                                              list[packageIndex]
-                                                  .href,
-                                              imgUrl:
-                                              list[packageIndex]
-                                                  .image,
-                                            )));
+                                              Navigator.of(context).push(RouteManager().createRoute(PackagePage(
+                                                endPoint:
+                                                list[packageIndex]
+                                                    .href,
+                                                imgUrl:
+                                                list[packageIndex]
+                                                    .image,
+                                              )));
 
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.blueAccent,
-                                            minimumSize: const Size(
-                                                double.maxFinite, 36),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      8.0), // Rounded corners
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.blueAccent,
+                                              minimumSize: const Size(
+                                                  double.maxFinite, 36),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        8.0), // Rounded corners
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              "READ MORE",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                             ),
                                           ),
-                                          child: const Text(
-                                            "READ MORE",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )),
-                          ),
-                          Positioned(
-                              top: 0,
-                              right: 0,
-                              child: Card(
-                                  color: Colors.white,
-                                  elevation: 8,
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 16),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 4),
-                                    child: Text(
-                                      list[packageIndex].likes,
-                                      style: const TextStyle(
-                                          color: Colors.black, fontSize: 12),
-                                    ),
-                                  ))),
-                        ],
-                      ),
-                    );
-                  },
-                )
-
-                /*return GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                    childAspectRatio: 1/2.25, // Height to width ratio for grid items
-                  ),
-                  itemCount: list.length,
-                  itemBuilder: (context, packageIndex) {
-                    return GestureDetector(
-                      onTap: () {
-
-                      },
-                      child: Stack(
-                        children: [
-                          Material(
-                            elevation: 8,
-                            borderRadius: BorderRadius.circular(8.0),
-                            color: ColorManager.background,
-                            child: Container(
-                                padding: const EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                  color: ColorManager.background,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: Wrap(
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        list[packageIndex].image.isNotEmpty ? AspectRatio(
-                                          aspectRatio: 1, // 1:1 aspect ratio
-                                          // child: Image.network(product.images![0].toString().replaceAll("https", "http")),
-                                          child: Image.network(
-                                              list[packageIndex].image
-                                          ),
-                                        ) : Image.asset("assets/flutter.png"),
-                                        Text(
-                                          list[packageIndex].title,
-                                          textAlign: TextAlign.start,
-                                          maxLines: 2,
-                                          style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(vertical: 4),
-                                          padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: list[packageIndex].maintenanceColor,
-                                            borderRadius: BorderRadius.circular(4.0),
-                                          ),
-                                          child: Text(
-                                            list[packageIndex].maintenance,
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
-                                            style: const TextStyle(color: Colors.white, fontSize: 12),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(vertical: 4),
-                                          padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: list[packageIndex].maintenanceColor,
-                                            borderRadius: BorderRadius.circular(4.0),
-                                          ),
-                                          child: Text(
-                                            list[packageIndex].maintenance,
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
-                                            style: const TextStyle(color: Colors.white, fontSize: 12),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(vertical: 4),
-                                          padding: const EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: Colors.blue,
-                                            borderRadius: BorderRadius.circular(4.0),
-                                          ),
-                                          child: Text(
-                                            list[packageIndex].compatibility,
-                                            textAlign: TextAlign.start,
-                                            maxLines: 1,
-                                            style: const TextStyle(color: Colors.white, fontSize: 12),
-                                          ),
-                                        ),
-                                        Text(
-                                          list[packageIndex].details,
-                                          textAlign: TextAlign.start,
-                                          maxLines: 4,
-                                          style: const TextStyle(color: Colors.black, fontSize: 12),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () async {
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PackagePage(endPoint: list[packageIndex].href, imgUrl: list[packageIndex].image,)));
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.blueAccent,
-                                            minimumSize: const Size(double.maxFinite, 36),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(8.0), // Rounded corners
-                                            ),
-                                          ),
-                                          child: const Text(
-                                            "READ MORE",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )
+                                        ],
+                                      )
+                                    ],
+                                  )),
                             ),
-                          ),
-                          Positioned(top: 0, right: 0, child: Card(color: Colors.white, elevation: 8, margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 16), child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            child: Text(list[packageIndex].likes, style: const TextStyle(color: Colors.black, fontSize: 12),),
-                          ))),
-                        ],
-                      ),
-                    );
-                  },
-                ),*/
+                            Positioned(
+                                top: 0,
+                                right: 0,
+                                child: Card(
+                                    color: Colors.white,
+                                    elevation: 8,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 16),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 4),
+                                      child: Text(
+                                        list[packageIndex].likes,
+                                        style: const TextStyle(
+                                            color: Colors.black, fontSize: 12),
+                                      ),
+                                    ))),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                )
               ],
             );
           } catch (e) {
@@ -376,7 +242,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
         title: const Text("Details",
